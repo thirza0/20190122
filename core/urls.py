@@ -19,10 +19,12 @@ from django.urls import path , include
 from rest_framework import routers
 from posts.views import PostViewSet, CommitsViewSet
 
+
+
 routers = routers.DefaultRouter()
 routers.trailing_slash = ''
-routers.register('posts',views.PostViewSet)
-routers.register('commits',views.CommitsViewSet)
+routers.register('posts',PostViewSet)
+routers.register('commits',CommitsViewSet)
 
 urlpatterns = [
     path('', include(routers.urls)),

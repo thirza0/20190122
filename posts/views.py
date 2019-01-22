@@ -1,10 +1,11 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from .models import Post, Commits
-from .serializers import PostSerializer ,CommitsSerializer
+from .serializers import PostSerializer, CommitsSerializer
 from .permissions import IsCreatorOrReadOnly
 from rest_framework.decorators import action
 from rest_framework.response import Response
+
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
@@ -36,20 +37,13 @@ class PostViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     
-def CommitsViewSet(viewsets.ModelViewSet):
+class CommitsViewSet(viewsets.ModelViewSet):
     queryset = Commits.objects.all()
     serializer_class = CommitsSerializer
     Permission_classes = [IsAuthenticated]
+    # Permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-    serializer.save(creator = self.request.user)
+        serializer.save(creator = self.request.user)
 
     # return Response(serializer.data)
-
-    
-
-        
-
-        
-
-    
